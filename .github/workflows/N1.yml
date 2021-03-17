@@ -129,7 +129,7 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./mk_s905d_n1_sfe.sh
+        #sudo ./mk_s905d_n1_sfe.sh
         sudo ./mk_s905d_n1.sh
         echo "::set-output name=status::success"
 
@@ -155,8 +155,8 @@ jobs:
         sudo pigz -9 -k *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
-        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
-        rename 's/All/1-All/' All*gz
+        #wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
+        #rename 's/All/1-All/' All*gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
