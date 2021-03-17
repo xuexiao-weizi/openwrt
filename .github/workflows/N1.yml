@@ -84,10 +84,10 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
-        sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
+        sudo wget -P $getimgs
         # sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         # sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo wget -P $GITHUB_WORKSPACE/ARMv8 http://wgedu.3322.org:8801/mk_openwrt_src_20210312.tar.gz
+        sudo wget -P http://wgedu.3322.org:8801/mk_openwrt_src_20210312.tar.gz
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         sudo xz -d Armbian*Aml*\+\.img\.xz
