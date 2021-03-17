@@ -85,10 +85,6 @@ jobs:
         cd /opt
         sudo rm -rf Armbian_*
         sudo wget -P ./ $getimgs
-        # sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
-        # sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo wget -P ./ http://wgedu.3322.org:8801/mk_openwrt_src_20210312.tar.gz
-        sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         sudo xz -d Armbian*Aml*\+\.img\.xz
         sudo xz -d Armbian*Aml*\+o*
@@ -97,6 +93,12 @@ jobs:
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
+        
+        # sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        # sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo wget -P ./ http://wgedu.3322.org:8801/mk_openwrt_src_20210312.tar.gz
+        sudo tar xvzf *.tar.gz
+
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -108,9 +110,9 @@ jobs:
 
     - name: autoVersion
       run: |
-        cd /opt/openwrt
-        chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
-        sudo $GITHUB_WORKSPACE/$Update_Ver_SH
+        # cd /opt/openwrt
+        # chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
+        # sudo $GITHUB_WORKSPACE/$Update_Ver_SH
 
     - name: Check Files1
       run: |
