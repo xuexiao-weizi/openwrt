@@ -86,7 +86,7 @@ jobs:
         sudo rm -rf Armbian_*
         sudo wget -P ./ $getimgs
         sudo mkdir imgs
-        sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.105-flippy-55+o.img.xz
+        sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
