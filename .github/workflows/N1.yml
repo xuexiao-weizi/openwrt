@@ -152,7 +152,8 @@ jobs:
         cd /opt/openwrt/tmp
         sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo pigz -9 -k *.img
+        #sudo pigz -9 -k *.img
+        sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         #wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
