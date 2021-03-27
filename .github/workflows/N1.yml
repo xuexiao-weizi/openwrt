@@ -96,7 +96,7 @@ jobs:
         
         # sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         # sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo wget -P ./ http://wgedu.3322.org:8801/mk_openwrt_src_20210312.tar.gz
+        sudo wget -P ./ http://wgedu.3322.org:8801/mk_openwrt_src_20210327.tar.gz
         sudo tar xvzf *.tar.gz
 
         cd /opt/openwrt
