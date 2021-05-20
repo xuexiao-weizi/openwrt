@@ -86,9 +86,9 @@ jobs:
         cd /opt/kernel
         #sudo rm -rf Armbian_*
         #sudo wget -P ./ $getimgs
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/boot-5.4.118-flippy-58+o.tar.gz
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/modules-5.4.118-flippy-58+o.tar.gz
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/dtb-amlogic-5.4.118-flippy-58+o.tar.gz
+        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/boot-5.4.120-flippy-59+o.tar.gz
+        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/modules-5.4.120-flippy-59+o.tar.gz
+        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/dtb-amlogic-5.4.120-flippy-59+o.tar.gz
         #sudo mkdir imgs
         #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
