@@ -86,9 +86,9 @@ jobs:
         cd /opt/kernel
         #sudo rm -rf Armbian_*
         #sudo wget -P ./ $getimgs
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/boot-5.4.121-flippy-59+o.tar.gz
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/modules-5.4.121-flippy-59+o.tar.gz
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/dtb-amlogic-5.4.121-flippy-59+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/openwrt_packit/releases/download/59/boot-5.4.121-flippy-59+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/openwrt_packit/releases/download/59/modules-5.4.121-flippy-59+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/openwrt_packit/releases/download/59/dtb-amlogic-5.4.121-flippy-59+o.tar.gz
         #sudo mkdir imgs
         #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
@@ -108,7 +108,7 @@ jobs:
 
         cd /opt/openwrt
         sudo rm ./make.env
-        sudo wget -P ./ http://wgedu.3322.org:8801/58+o/make.env
+        sudo wget -P ./ https://github.com/xuexiao-weizi/openwrt_packit/releases/download/59/make.env
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
         sudo wget  https://github.com/xuexiao-weizi/OpenWrt_Arm/releases/download/$version/openwrt-armvirt-64-default-rootfs.tar.gz
