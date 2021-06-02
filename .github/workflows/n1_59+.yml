@@ -1,0 +1,210 @@
+name: N1_59+
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Number of days.'
+        required: true
+        default: 60
+      minimum_runs:
+        description: 'The minimum runs to keep for each workflow.'
+        required: true
+        default: 6
+ # schedule:
+  #  - cron: 0 23 * * *
+
+env:
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: ARMv8/gdq-sfe.config
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
+  Update_Ver_SH: ARMv8/autoVersion.sh
+  Get_Imgs_SH: ARMv8/getImgs.sh
+  UPLOAD_BIN_DIR: false
+  UPLOAD_FIRMWARE: false
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  TZ: Asia/Shanghai
+  FILE_NAME: N1
+ # PRODUCT_NAME: N1
+
+jobs:
+
+  gdq: #高大全版
+    runs-on: ubuntu-18.04
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+        
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq install rename
+        sudo -E apt-get -qq install time
+        sudo -E apt-get -qq install sshpass
+        sudo -E apt-get -qq install pigz
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        # echo "dibao_sfe=${{ secrets.dibao_gdq_sfe }}"  >> $GITHUB_ENV
+        # echo "dibao_o=${{ secrets.dibao_gdq_o }}"  >> $GITHUB_ENV
+        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
+        
+        version=$(curl -s "https://api.github.com/repos/xuexiao-weizi/OpenWrt_Arm/releases/latest" | awk -F '"' '/tag_name/{print $4}')
+        
+        echo "version=$version"  >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")"  >> $GITHUB_ENV
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
+        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+#        echo "::set-env name=useVersionInfo::$useVersionInfo"
+#        echo "::set-env name=DATE::$(date "+%Y-%m-%d %H:%M:%S")"
+
+    - name: Download and organize files
+      #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
+      run: |
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
+        #sudo rm -rf Armbian_*
+        #sudo wget -P ./ $getimgs
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59+/boot-5.12.8-flippy-59+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59/modules-5.12.8-flippy-59+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59/dtb-amlogic-5.12.8-flippy-59+.tar.gz
+        #sudo mkdir imgs
+        #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
+        # sudo xz -d Armbian*Aml*\+o*
+        #sudo xz -d Armbian*Beike*\+\.img\.xz
+        #sudo xz -d Armbian*Beike*\+o*
+        #sudo xz -d Armbian*L1*\+\.img\.xz
+        #sudo xz -d Armbian*L1*\+o*
+        #sudo mv *.img imgs
+        
+        # sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        # sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
+        #sudo wget -P ./ http://wgedu.3322.org:8801/mk_openwrt_src_20210401.tar.gz
+        #sudo tar xvzf *.tar.gz
+        
+        cd ..
+        git clone https://github.com/unifreq/openwrt_packit openwrt
+
+        cd /opt/openwrt
+        sudo rm ./make.env
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59+/make.env
+        sudo mkdir sfe && cd sfe
+        sudo rm -rf openwrt-armvirt-64-*
+        sudo wget  https://github.com/xuexiao-weizi/OpenWrt_Arm/releases/download/$version/openwrt-armvirt-64-default-rootfs.tar.gz
+        cd ..
+        sudo mkdir flowoffload && cd flowoffload
+        sudo rm -rf openwrt-armvirt-64-*
+        sudo wget  https://github.com/xuexiao-weizi/OpenWrt_Arm/releases/download/$version/openwrt-armvirt-64-default-rootfs.tar.gz
+
+    - name: autoVersion
+      run: |
+        # cd /opt/openwrt
+        # chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
+        # sudo $GITHUB_WORKSPACE/$Update_Ver_SH
+
+    - name: Check Files1
+      run: |
+        cd /opt/kernel
+        ls
+
+    - name: Check Files2
+      run: |
+        cd /opt/openwrt
+        ls
+
+    - name: Build firmware
+      id: build
+      run: |
+        cd /opt/openwrt
+        sudo chmod +x *.sh
+        #sudo ./mk_s905d_n1_sfe.sh
+        sudo ./mk_s905d_n1.sh
+        echo "::set-output name=status::success"
+
+    - name: copy update files
+      run: |
+        cd /opt/openwrt
+        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
+
+    - name: Check Files3
+      run: |
+        cd /opt/openwrt/tmp
+        #rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
+        rename 's/openwrt_s905d_n1/gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
+        ls
+
+    - name: pigz -9
+      id: pigz
+      run: |
+        sudo chmod  -R 777 /opt/openwrt/tmp
+        cd /opt/openwrt/tmp
+        sudo rm -rf *.gz
+        #sudo rm N1_*\+.*
+        #sudo pigz -9 -k *.img
+        sudo pigz -9 *.img
+        #sudo rm N1_*\+o.img
+        #sudo rm btld-rk3328.bin
+        #wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
+        #rename 's/All/1-All/' All*gz
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
+
+    - name: Check Files4
+      run: |
+        cd /opt/openwrt/tmp
+        ls
+
+    - name: Create release
+      id: release
+      uses: ncipollo/release-action@v1
+      with:
+        name: ${{ env.DATE }} Openwrt for N1
+        allowUpdates: true
+        tag: ${{ env.FILE_NAME }}
+        commit: main
+        token: ${{ secrets.RELEASES_TOKEN }}
+        body: |
+          ## 鉴于N1用户群庞大，特单独开此release
+          默认IP：192.168.1.3 默认密码： password
+          Openwrt🚀(注:gdq是高大全版和f大固件集成软件相差无几，mini是精简版。+o版为flowoffload加速,+版为sfe加速)
+          N1在线升级方法：
+             1. cd /mnt/mmcblk2p4
+             2. wget 升级脚本链接,鼠标右击后缀.sh文件获取链接地址
+             3. wget 固件链接
+             4. gzip -d 上一步下载的固件全名
+             5. chmod +x *.sh
+             6. ./升级脚本名字 img固件名
+        artifacts: ${{ env.FIRMWARE }}/*
+
+
+
+
+  over:
+    needs: [gdq]
+    runs-on: ubuntu-18.04
+    steps:
+    #- name: WeChat notification #微信推送
+    #  run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=N1打包成功
+    - name: TG notification #TG推送
+      run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=N1打包成功"
