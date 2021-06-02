@@ -103,7 +103,8 @@ jobs:
         #sudo tar xvzf *.tar.gz
         
         cd ..
-        git clone https://github.com/xuexiao-weizi/quansu_muban_N1 openwrt
+        #git clone https://github.com/xuexiao-weizi/quansu_muban_N1 openwrt
+        git clone https://github.com/unifreq/openwrt_packit openwrt
         cd /opt/openwrt
         sudo rm ./make.env
         sudo wget -P ./ https://github.com/xuexiao-weizi/quansu_muban_N1/releases/download/59/make.env
