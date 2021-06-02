@@ -87,8 +87,8 @@ jobs:
         #sudo rm -rf Armbian_*
         #sudo wget -P ./ $getimgs
         sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59+/boot-5.12.8-flippy-59+.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59/modules-5.12.8-flippy-59+.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59/dtb-amlogic-5.12.8-flippy-59+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59+/modules-5.12.8-flippy-59+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/59+/dtb-amlogic-5.12.8-flippy-59+.tar.gz
         #sudo mkdir imgs
         #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
