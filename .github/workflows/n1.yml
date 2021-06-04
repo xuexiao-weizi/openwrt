@@ -1,4 +1,4 @@
-name: N1
+name: N1_+o
 
 on:
   repository_dispatch:
