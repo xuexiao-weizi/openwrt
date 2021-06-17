@@ -86,9 +86,9 @@ jobs:
         cd /opt/kernel
         #sudo rm -rf Armbian_*
         #sudo wget -P ./ $getimgs
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/boot-5.4.126-flippy-60+o.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/modules-5.4.126-flippy-60+o.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/dtb-amlogic-5.4.126-flippy-60+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/boot-5.4.126-flippy-61+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/modules-5.4.126-flippy-61+o.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/126/dtb-amlogic-5.4.126-flippy-61+o.tar.gz
         #sudo mkdir imgs
         #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
