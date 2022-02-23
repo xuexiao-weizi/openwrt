@@ -150,7 +150,7 @@ jobs:
 
     - name: Check Files3
       run: |
-        cd /opt/openwrt/tmp
+        cd /opt/openwrt/output
         #rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
         rename 's/openwrt_s905d_n1/gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
         ls
@@ -158,8 +158,8 @@ jobs:
     - name: pigz -9
       id: pigz
       run: |
-        sudo chmod  -R 777 /opt/openwrt/tmp
-        cd /opt/openwrt/tmp
+        sudo chmod  -R 777 /opt/openwrt/output
+        cd /opt/openwrt/output
         sudo rm -rf *.gz
         #sudo rm N1_*\+.*
         #sudo pigz -9 -k *.img
@@ -173,7 +173,7 @@ jobs:
 
     - name: Check Files4
       run: |
-        cd /opt/openwrt/tmp
+        cd /opt/openwrt/output
         ls
 
     - name: Create release
