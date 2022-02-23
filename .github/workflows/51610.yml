@@ -35,7 +35,7 @@ env:
 jobs:
 
   gdq: #高大全版
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -203,7 +203,7 @@ jobs:
 
   over:
     needs: [gdq]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     #- name: WeChat notification #微信推送
     #  run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=N1打包成功
