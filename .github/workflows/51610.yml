@@ -146,7 +146,7 @@ jobs:
     - name: copy update files
       run: |
         cd /opt/openwrt
-        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh output/z-update-amlogic-openwrt.sh
 
     - name: Check Files3
       run: |
