@@ -1,4 +1,4 @@
-name: N1_51610
+name: N1_51612
 
 on:
   repository_dispatch:
@@ -86,9 +86,9 @@ jobs:
         cd /opt/kernel
         #sudo rm -rf Armbian_*
         #sudo wget -P ./ $getimgs
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51610/boot-5.16.10-flippy-70+.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51610/modules-5.16.10-flippy-70+.tar.gz
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51610/dtb-amlogic-5.16.10-flippy-70+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51612/boot-5.16.12-flippy-70+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51612/modules-5.16.12-flippy-70+.tar.gz
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51620/dtb-amlogic-5.16.12-flippy-70+.tar.gz
         #sudo mkdir imgs
         #sudo xz -d ./Armbian_20.10_Aml-s9xxx_buster_5.4.108-flippy-56+o.img.xz
         # sudo xz -d Armbian*Aml*\+o*
@@ -108,14 +108,14 @@ jobs:
 
         cd /opt/openwrt
         sudo rm ./make.env
-        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51610/make.env
+        sudo wget -P ./ https://github.com/xuexiao-weizi/neihe/releases/download/51612/make.env
         # sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
-        sudo wget  https://github.com/xuexiao-weizi/OPenwrtYun/releases/download/20220222201433/02-22-Lede-armvirt-64-default-rootfs.tar.gz
+        sudo wget  https://github.com/xuexiao-weizi/OPenwrtYun/releases/download/20220305190339/03-05-Lede-armvirt-64-default-rootfs.tar.gz
         # cd ..
         # sudo mkdir flowoffload && cd flowoffload
         # sudo rm -rf openwrt-armvirt-64-*
-        # sudo wget  https://github.com/xuexiao-weizi/OPenwrtYun/releases/download/20220222201433/02-22-Lede-armvirt-64-default-rootfs.tar.gz
+        # sudo wget  https://github.com/xuexiao-weizi/OPenwrtYun/releases/download/20220305190339/03-05-Lede-armvirt-64-default-rootfs.tar.gz
         sudo mv *armvirt-64-default-rootfs.tar.gz openwrt-armvirt-64-default-rootfs.tar.gz
 
     - name: autoVersion
